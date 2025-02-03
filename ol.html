@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <script src="dgi.js"></script>
+<link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/all.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-duotone-thin.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-duotone-solid.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-duotone-regular.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-duotone-light.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-thin.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-solid.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-regular.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/sharp-light.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/duotone-thin.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/duotone-regular.css">
+  <link rel="stylesheet" href=
+  "https://site-assets.fontawesome.com/releases/v6.7.1/css/duotone-light.css"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&display=swap" rel="stylesheet">
+   
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">   
+<link rel="stylesheet" href="ol.css">
+</head>
+<body><div class="popup" id="popup">
+    <div class="popup-content">
+      <img src="upload.gif">
+      </div>
+ </div>
+<button class="claim-button1" id="backButton"><i class="fas fa-circle-arrow-left"></i></button>
+  <div class="no-connection-popup" id="no-connection-popup">
+        <div class="icon"><i class="fa-duotone fa-solid fa-wifi-slash"></i></div>
+        <h1>ইন্টারনেট সংযোগ নেই!</h1>
+    </div>
+    </div>
+ <div class="no-connection-popup" id="no-connection-popup2">
+        <div class="icon"><i class="fa-duotone fa-solid fa-gear-complex-code"></i></div>
+        <h1>কোনো একটি সমস্যা হচ্ছে!</h1>
+        </div>
+    <div class="offer-container">
+    <button class="claim-button" onclick="document.location='offer.html'"><i class="fa-duotone fa-solid fa-download"></i> Claim</button>
+    <div class="offer-text"><span style="border-bottom: 3px solid #9e154e;padding: 5px 0px;font-size:14px"> Bonus নিতে Claim করো 📢</span><p style="font-weight: bold;font-size: 14px" id="balance">loading....</p></div>
+</div>
+  </div>
+   <div class="gif-container">
+        <img src="https://nfcard.github.io/ol/gif5.gif" alt="No offer">
+   </div>
+ <script>
+document.getElementById('backButton').addEventListener('click', function() {
+    // Add class to move the body down
+    document.body.classList.add('move-down');
+    
+    // Wait for the animation to complete (1 second), then go back
+    setTimeout(function() {
+        window.history.back();
+    }, 400);  // Match this duration with the CSS transition time
+});
+</script>
+<script src="ol.js"></script></body>
+</html>

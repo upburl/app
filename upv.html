@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title><script src="dgi.js"></script>
+
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.1/css/all.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            background: linear-gradient(180deg, #f8f0fc, #e0f7fa);
+            margin: 0;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        body.move-down {
+            transform: translateY(5vh);
+        }
+#mail {
+    position: relative;
+    display: inline-block;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+#mail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%; /* Start the blur effect at 25% of the email's width */
+    width: 40%; /* Cover the middle 50% of the email */
+    height: 100%;
+    background: transparent; /* Semi-transparent white background */
+    backdrop-filter: blur(5px); /* Apply blur effect */
+    pointer-events: none;
+    -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard syntax */
+}
+
+        #form-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            max-width: 400px;
+            width: 100%;
+            opacity: 1;
+            transform: translateY(5vh);
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2, h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .code-input {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2em;
+            text-align: center;
+            margin: 0 5px;
+            border: 2px solid #0e8f33;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #message, #message2 {
+            margin-top: 20px;
+            font-size: 0.9em;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #message {
+            color: #28a745;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        #message2 {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            z-index: 10000;
+            transition: visibility 0s, opacity 0.3s ease;
+        }
+
+        .popup.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 100px;
+            position: relative;
+        }
+
+        .popup-content img {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <img src="upload.gif">
+    </div>
+</div>
+<div id="form-container">
+    <div id="email-form">
+        <h2>আপনার ফোন নম্বর দিন</h2>
+        <input type="tel" id="phone_number" placeholder="01XXXXXXXXX" maxlength="11" required>
+        <button style="display:none" id="newac" onclick="newac()">নতুন আইডি খুলুন</button>
+        <button style="background-color:#f52f5e" id="send-code">Get Code</button>
+    </div>
+    <div id="code-form" style="display:none">
+        <h3>ইমেইলে আশা কোডটি দিন</h3>
+        <div style="margin: 5%" class="input-container">
+            <input type="tel" maxlength="1" class="code-input" />
+            <input type="tel" maxlength="1" class="code-input" />
+            <input type="tel" maxlength="1" class="code-input" />
+            <input type="tel" maxlength="1" class="code-input" />
+        </div>
+        <button style="display:none" id="verify-code">Verify</button>
+    </div>
+    <div id="message2"></div>
+    <div id="message"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>document.addEventListener('contextmenu', function (e) {
+  e.preventDefault(); // Prevents the context menu from appearing
+});document.addEventListener('cut', function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener('copy', function (e) {
+  e.preventDefault();
+});
+
+document.addEventListener('paste', function (e) {
+  e.preventDefault();
+});
+    emailjs.init({ publicKey: "2YgGWzyn6XD7EcrL_" });
+
+// Focus phone number field after page load
+window.onload = () => {
+    document.getElementById("phone_number").focus();
+};
+
+const message = document.getElementById("message");
+const message2 = document.getElementById("message2");
+const newacx = document.getElementById("newac");
+document.getElementById("send-code").addEventListener("click", function () {
+const phoneInput = document.getElementById("phone_number").value.trim();
+            if (phoneInput.length === 11 &&( phoneInput.startsWith("019") ||  phoneInput.startsWith("015") ||  phoneInput.startsWith("016") ||  phoneInput.startsWith("017") ||  phoneInput.startsWith("013") ||  phoneInput.startsWith("018")) && /^[0-9]+$/.test(phoneInput)) {
+            } else {
+                message2.textContent = "ফোন নাম্বারটি সঠিক নয়";
+                console.log("Validation failed: Check length, start digit, and numeric format.");
+           return;
+            }
+document.getElementById("popup").classList.add("active");
+    const sendCodeButton = document.getElementById('send-code');
+    sendCodeButton.disabled = true;
+    sendCodeButton.innerText = 'Sending....';
+    sendCodeButton.style.opacity = '0.4';
+message2.style.display = "none";
+            
+    async function getEmailByPhoneNumber(phoneNumber) {
+       const csvUrl = `${dgistart}/1TDMAsjWwLx6Yv-oPUYPZInqmX0oWKtTIYKqeveCkH5w/gviz/tq?tqx=out:csv`;
+        const response = await fetch(csvUrl);
+        const csvData = await response.text();
+
+        // Parse CSV data and clean values
+        const rows = csvData.split('\n').map(row => row.split(',').map(cell => cell.replace(/^"|"$/g, '').trim()));
+
+        // Find the email corresponding to the phone number
+        for (let row of rows) {
+            const storedPhoneNumber = row[1]?.replace(/\D/g, ''); // Normalize stored phone number
+            const storedEmail = row[3];
+
+            if (storedPhoneNumber === phoneNumber) {
+                return storedEmail;
+            }
+        }
+        return null;
+    }
+
+    const phoneNumber = document.getElementById("phone_number").value.trim().replace(/\D/g, '');
+
+    getEmailByPhoneNumber(phoneNumber).then(email => {
+        if (!email) {
+            message2.style.display = "block";
+            message2.textContent = "ফোন নাম্বারটি নিবন্ধিত নয়।";
+            sendCodeButton.style.display = 'none';
+            newacx.style.display = '';
+            document.getElementById("popup").classList.remove("active");
+            return;
+        }
+
+        const code = Math.floor(1000 + Math.random() * 9000); // Generate 4-digit code
+        localStorage.setItem("verification_code", code);
+
+        emailjs.send("service_hqdocea", "template_gnkv6kb", { to_email: email, verification_code: code })
+            .then(() => {
+                sendCodeButton.style.display = 'none';
+                document.getElementById("email-form").style.display = "none";
+                document.getElementById("code-form").style.display = "block";
+                message.style.display = "block";
+                message.style.textAlign = "justify";
+                
+                message.innerHTML = `একটি কোড আপনার ইমেইলে <span id="mail">${email}</span> পাঠানো হয়েছে।`;
+                document.getElementById("popup").classList.remove("active");
+
+                document.querySelector('.code-input').focus();
+            })
+            .catch(() => {
+                message2.style.display = "block";
+                message2.textContent = "কোড পাঠানো হয়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+                document.getElementById("popup").classList.remove("active");
+            });
+    });
+});
+
+// Auto-advance functionality for input fields
+const inputs = document.querySelectorAll('.code-input');
+
+inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+        if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+
+        // Check if all fields are filled
+        if ([...inputs].every(i => i.value !== '')) {
+            verifyCode(); // Automatically trigger verification
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && input.value === '' && index > 0) {
+            inputs[index - 1].focus();
+        }
+    });
+});
+
+// New account function
+function newac() {
+    newacx.style.display = 'none';
+    document.getElementById("popup").classList.remove("active");
+    const phoneNumber = document.getElementById("phone_number").value.trim();
+    const userConfirmed = confirm("অনুগ্রহ করে একাউন্ট খোলার সময় এ্যাপ থেকে বের হবেন না! এতে আপনার একাউন্টে সমস্যা হবে।");
+    if (userConfirmed) {
+     setTimeout(() => {
+        window.parent.postMessage({ phoneNumber: phoneNumber, status: "new_ac" }, "*");
+    }, 500);
+    }
+}
+
+// Verification function
+function verifyCode() {
+    let enteredCode = [...inputs].map(input => input.value).join('');
+    const savedCode = localStorage.getItem("verification_code");
+    const phoneNumber = document.getElementById("phone_number").value.trim();
+
+    if (enteredCode === savedCode) {
+        document.body.classList.add('move-down');
+        localStorage.removeItem("verification_code");
+
+        message.style.display = "block";
+        message.textContent = "অভিনন্দন। ভেরিফিকেশন সম্পন্ন হয়েছে।";
+        document.getElementById("popup").classList.remove("active");
+
+        setTimeout(() => {
+            window.parent.postMessage({ phoneNumber: phoneNumber, status: "verification_success" }, "*");
+        }, 500);
+    } else {
+        message.style.display = "none";
+        message2.style.display = "block";
+        message2.textContent = "আপনার কোডটি সঠিক নয়। পুনরায় আবার চেষ্টা করুন।";
+        document.getElementById("popup").classList.remove("active");
+    }
+}
+
+document.getElementById("verify-code").addEventListener("click", verifyCode);
+</script>
+</body>
+
+</html>

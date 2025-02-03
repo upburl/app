@@ -135,7 +135,7 @@ const bonusAmountx = parseFloat(document.getElementById("code").value) || 0;
     }
 
     function timing() {
-        let r = 5;
+        let r = 2;
         const interval = setInterval(() => {
             if (r > 0) {
                 animateText(`Wait ${r}s`, "result", "letter");

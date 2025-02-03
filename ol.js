@@ -9,7 +9,7 @@ function fetchData() {
         .parseFromString(e, "text/html")
         .querySelectorAll("table")[0].rows[3].cells[3];
      document.getElementById("popup").classList.remove("active");
-             document.getElementById("balance").textContent = (t.innerText || t.textContent).trim();
+             document.getElementById("balance").innerHTML = (t.innerText || t.textContent).trim();
     })
     .catch(e => console.error("Error fetching data:", e));
 }

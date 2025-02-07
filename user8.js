@@ -264,12 +264,16 @@ async function l() {
     }
 }
 
-// Fetching and processing data
-fetchData(t, 3, 4, "balance1", "letter");
-fetchData(t, 3, 3, "balance2", "letter-wave");
-fetchData(0, 4, 2, "balance3", "letter"); // Extract numeric value in balance3
-fetchData(t, 4, 3, "balance4", "letter"); // Extract numeric value in balance4
-l();
+Promise.all([
+  fetchData(t, 3, 4, "balance1", "letter"),
+  fetchData(t, 3, 3, "balance2", "letter-wave"),
+  fetchData(0, 4, 2, "balance3", "letter"),
+  fetchData(t, 4, 3, "balance4", "letter")
+]).then(() => {
+  l();
+}).catch(error => {
+  console.error("Error in fetching data:", error);
+});
    let r = "sheetCellValue";
     function o() {
     }

@@ -170,8 +170,8 @@ passwordField.addEventListener('focus', () => {
                     srEntry: matchedRow[6],
                     saEntry: matchedRow[7],
                     img: matchedRow[8],
-                    id: matchedRow[9],
-                    address: matchedRow[10],
+                    id: matchedRow[11],
+                    mymail: matchedRow[9],
                     tbl:Number('0')
                 };
                 if(matchedRow[11] !== 'ban'){

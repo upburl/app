@@ -78,11 +78,13 @@ function updateProfile() {
             document.getElementById('sae').value = saEntry || 'N/A';
             document.getElementById('acname').value = xname;
             sendButton.style.display = '';
-            if(hisname){
+            if(hisname && stat !== '123'){
                 document.getElementById('hisname').innerText = xname;
             }
-            if(stat === 'ban'){
+            else{
            sendButton.style.display = 'none';
+                       document.getElementById('hisname').style.color = 'red';
+        
                         document.getElementById('hisname').innerText = 'account inactive';
         
  }
@@ -94,9 +96,7 @@ function updateProfile() {
             document.getElementById('sre').value = 'N/A';
             document.getElementById('sae').value = 'N/A';
             sendButton.style.display = 'none';
-         if(hisname){
                 document.getElementById('hisname').innerText = 'no account';
-            }
            }
     } else if (!phonenumber) {
         // Default image if phone number input is empty
@@ -105,13 +105,16 @@ function updateProfile() {
         document.getElementById('sde').value = 'N/A';
         document.getElementById('sre').value = 'N/A';
         document.getElementById('sae').value = 'N/A';
-    } else {
+          document.getElementById('hisname').innerText = 'name';
+          } else {
         // Default image for invalid phone number (not 11 digits)
         profilePic.src = 'user.jpg';sendButton.style.display = 'none';
         document.getElementById('formid').value = 'N/A';
         document.getElementById('sde').value = 'N/A';
         document.getElementById('sre').value = 'N/A';
         document.getElementById('sae').value = 'N/A';
+               document.getElementById('hisname').innerText = 'name';
+         
     }
 }
 

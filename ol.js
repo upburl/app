@@ -17,6 +17,7 @@ function fetchData() {
 window.onload = fetchData;
 const images = [
     "https://nfcard.github.io/ol/img.jpg",
+    "https://nfcard.github.io/ol/recharge.jpg",
     "https://nfcard.github.io/ol/img1.png",
     "https://nfcard.github.io/ol/img2.jpg",
     "https://nfcard.github.io/ol/img3.jpg"
@@ -118,10 +119,10 @@ function startSlideshow() {
                 setPositionByIndex();
                 setTimeout(() => {
                     slider.style.transition = "transform 0.5s ease-in-out"; // Restore transition
-                }, 100);
-            }, 1000); // WAIT 5 SECONDS before resetting
+                }, 200);
+            }, 2000); // WAIT 5 SECONDS before resetting
         }
-    }, 5000);
+    }, 6000);
 }
 
 // Stop slideshow on manual touch and restart it
@@ -174,4 +175,4 @@ createImages();
 setTimeout(() => {
     setPositionByIndex();
     startSlideshow();
-}, 100);
+}, 200);

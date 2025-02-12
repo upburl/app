@@ -19,8 +19,7 @@ const images = [
     "https://nfcard.github.io/ol/img.jpg",
     "https://nfcard.github.io/ol/recharge.jpg",
     "https://nfcard.github.io/ol/img1.png",
-    "https://nfcard.github.io/ol/img2.jpg",
-    "https://nfcard.github.io/ol/img3.jpg"
+    "https://nfcard.github.io/ol/img2.jpg"
 ];
 
 const container = document.querySelector('.gif-container');

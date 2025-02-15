@@ -92,13 +92,12 @@ function setPositionByIndex() {
     let totalImages = images.length;
     let imageWidth = getImageWidth();
     
-    // Adjust translation for last image to show part of the previous image
-    if (currentIndex === totalImages - 1) {
-        currentTranslate = -currentIndex * (imageWidth + gap) + (container.clientWidth - imageWidth - gap);
-    } else {
-        currentTranslate = -currentIndex * (imageWidth + gap);
-    }
-    
+  if (currentIndex === totalImages - 1) {
+    currentTranslate = -currentIndex * (imageWidth + gap) + (container.clientWidth - imageWidth);
+} else {
+    currentTranslate = -currentIndex * (imageWidth + gap);
+}
+  
     prevTranslate = currentTranslate;
     slider.style.transition = "transform 0.5s ease-in-out";
     slider.style.transform = `translateX(${currentTranslate}px)`;

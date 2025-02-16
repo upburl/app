@@ -181,11 +181,11 @@ let selfid = params.formid;
 
                 localStorage.setItem("lastWithdraw", lastWithdraw);
                 localStorage.setItem("withdrawCount", withdrawCount);
-            } else if (nextlimit >= 50 && nextlimit <= 100) {
+            } else if (nextlimit >= 50 && nextlimit < 100) {
                 charge = 1; // Fixed: Any amount >= 50 and <= 100 incurs a charge of 1
-            } else if (nextlimit >= 101 && nextlimit <= 500) {
+            } else if (nextlimit >= 100 && nextlimit < 500) {
                 charge = 2;
-            } else if (nextlimit >= 501 && nextlimit <= 1000) {
+            } else if (nextlimit >= 500 && nextlimit < 1000) {
                 charge = 3;
             } else {
                 charge = 5;

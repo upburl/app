@@ -16,7 +16,7 @@ function fetchData() {
 
 window.onload = fetchData;
 const images = [
-    "https://nfcard.github.io/ol/febr.jpg",
+    "https://nfcard.github.io/ol/imgx1.png",
     "https://nfcard.github.io/ol/chout.jpg",
   "https://nfcard.github.io/ol/img.jpg"
 ];

@@ -149,7 +149,7 @@ const  blcofmy = parseInt(numberValue.textContent.match(/\d+/)[0], 10);
        await fetchData2(); // Wait for maxValue to be set
 
      // Check if maxValue is defined and amount is valid
-     if ((blcofmy < '500' && amount > blcofmy) || ( amount > maxValue || amount >= 200)) {
+     if ( amount > maxValue || amount >= 3000) {
         playAudio(audioElement2);
         showError(failed, `দুঃখিত ${amount}৳ টাকা লোন নেওয়া সম্ভব নয়। লোন নিতে একাউন্টে ব্যালেন্স রাখুন।`);
         return;

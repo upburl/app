@@ -270,7 +270,7 @@ Promise.all([
   fetchData(0, 4, 2, "balance3", "letter"),
   fetchData(t, 4, 3, "balance4", "letter")
 ]).then(() => {
-  l();
+  a();
 }).catch(error => {
   console.error("Error in fetching data:", error);
 });
@@ -289,7 +289,7 @@ Promise.all([
                 o !== a && (localStorage.setItem(r, o), localStorage.removeItem("popupShown")),
                 "true" !== localStorage.getItem("popupShown") && (console.log("Showing popup"),setTimeout(() => {
     clearInterval(confettiInterval);
-  }, 3000), playnyr()
+  }, 3000),l(), playnyr()
    ,document.getElementById("popup").classList.add("active"));
         } catch (i) {
         }

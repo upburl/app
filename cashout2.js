@@ -75,7 +75,7 @@ let match = cellText.match(/^dps balance (\d+)\/dps\/(\d+)$/);
  limit = match ? parseFloat(match[2]) : '0';  // Second number (1000)
  limit2 = match ? parseFloat(match[1]) : '0'; // First number (2000)
 
-     if(limit !== '0'){
+     if(limit > 0){
          alert(`আপনি ${limit} টাকা পর্যন্ত কোনো চার্জ ছাড়াই ক্যাশআউট করতে পারবেন`);
      } 
                 console.log(limit);

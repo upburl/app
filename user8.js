@@ -268,12 +268,140 @@ Promise.all([
   fetchData(t, 3, 4, "balance1", "letter"),
   fetchData(t, 3, 3, "balance2", "letter-wave"),
   fetchData(0, 4, 2, "balance3", "letter"),
-  fetchData(t, 4, 3, "balance4", "letter")
+  fetchData(t, 4, 3, "balance4", "letter"),
+       efff(),xyz()
 ]).then(() => {
   a();
 }).catch(error => {
   console.error("Error in fetching data:", error);
-});
+});function efff() {
+    let t = JSON.parse(localStorage.getItem("secureData"));
+    let imgElement = document.getElementById("mypic");
+
+    if (t) {
+        document.getElementById("name").innerText = t.name;
+        document.getElementById("mob").innerText = t.cvv;
+
+        let db;
+
+        // Open or create IndexedDB database
+        let request = indexedDB.open("ImageDB", 1);
+
+        request.onupgradeneeded = function (event) {
+            db = event.target.result;
+            if (!db.objectStoreNames.contains("images")) {
+                db.createObjectStore("images", { keyPath: "id" });
+            }
+        };
+
+        request.onsuccess = function (event) {
+            db = event.target.result;
+            checkAndLoadImage();
+        };
+
+        request.onerror = function (event) {
+            console.error("Error opening IndexedDB:", event.target.error);
+        };
+
+        function checkAndLoadImage() {
+            let savedImgUrl = localStorage.getItem("savedImageUrl");
+
+            if (t.img === "not added") {
+                imgElement.src = "who.png";
+            } else if (savedImgUrl === t.img) {
+                loadImageFromIndexedDB();
+            } else {
+                localStorage.setItem("savedImageUrl", t.img);
+                saveImageToIndexedDB(t.img);
+                imgElement.src = t.img;
+            }
+        }
+
+        function saveImageToIndexedDB(imageUrl) {
+            if (imageUrl === "not added") return;
+
+            fetch(imageUrl)
+                .then((response) => response.blob())
+                .then((blob) => {
+                    let reader = new FileReader();
+                    reader.onload = function () {
+                        let transaction = db.transaction(["images"], "readwrite");
+                        let store = transaction.objectStore("images");
+                        store.put({ id: "savedImage", data: reader.result });
+                    };
+                    reader.readAsDataURL(blob);
+                })
+                .catch((error) => console.error("Error fetching image:", error));
+        }
+
+        function loadImageFromIndexedDB() {
+            let transaction = db.transaction(["images"], "readonly");
+            let store = transaction.objectStore("images");
+            let request = store.get("savedImage");
+
+            request.onsuccess = function () {
+                if (request.result) {
+                    imgElement.src = request.result.data;
+                } else {
+                    imgElement.src = "who.png";
+                }
+            };
+
+            request.onerror = function () {
+                console.error("Error loading image from IndexedDB");
+            };
+        }
+
+        // Create popup elements
+        const popupOverlay = document.createElement("div");
+        const popupImage = document.createElement("img");
+
+        // Set styles for popup overlay
+        popupOverlay.style.position = "fixed";
+        popupOverlay.style.top = "0";
+        popupOverlay.style.left = "0";
+        popupOverlay.style.width = "100%";
+        popupOverlay.style.height = "100%";
+        popupOverlay.style.background = "rgba(0, 0, 0, 0.5)";
+        popupOverlay.style.backdropFilter = "blur(2px)";
+        popupOverlay.style.webkitBackdropFilter = "blur(2px)";
+        popupOverlay.style.display = "none";
+        popupOverlay.style.justifyContent = "center";
+        popupOverlay.style.alignItems = "center";
+        popupOverlay.style.zIndex = "1000";
+
+        // Set styles for popup image
+        popupImage.style.maxWidth = "90%";
+        popupImage.style.maxHeight = "90%";
+        popupImage.style.borderRadius = "10px";
+        popupImage.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.5)";
+
+        popupOverlay.appendChild(popupImage);
+        document.body.appendChild(popupOverlay);
+
+        imgElement.addEventListener("click", function () {
+            let transaction = db.transaction(["images"], "readonly");
+            let store = transaction.objectStore("images");
+            let request = store.get("savedImage");
+
+            request.onsuccess = function () {
+                if (request.result) {
+                    popupImage.src = request.result.data;
+                    popupOverlay.style.display = "flex";
+                }
+            };
+        });
+
+        popupOverlay.addEventListener("click", function (e) {
+            if (e.target === popupOverlay) {
+                popupOverlay.style.display = "none";
+            }
+        });
+    } else {
+        window.location.href = "index1.html";
+    }
+}
+
    let r = "sheetCellValue";
     function o() {
     }
@@ -328,69 +456,7 @@ window.addEventListener('popstate', function (event) {
     document.getElementById("popup2").classList.remove("active");
  }, 500);
 };
-window.onload = function () {
-    xyz();
-    a();
-    (function e() {
-        let t = JSON.parse(localStorage.getItem("secureData"));
-        if (t) {
-            document.getElementById("name").innerText = t.name;
-            document.getElementById("mob").innerText = t.cvv;
-            let n = document.getElementById("mypic");
-       n.src = t.img !== "not added" ? t.img : 'who.png';
-
-            // Add the popup functionality here
-            const popupOverlay = document.createElement('div');
-            const popupImage = document.createElement('img');
-
-            // Set styles for the popup overlay
-            popupOverlay.style.position = "fixed";
-            popupOverlay.style.top = "0";
-            popupOverlay.style.left = "0";
-            popupOverlay.style.width = "100%";
-            popupOverlay.style.height = "100%";
-     // Set the styles for the popup overlay
-popupOverlay.style.background = "rgba(0, 0, 0, 0.5)"; // Semi-transparent background
-popupOverlay.style.backdropFilter = "blur(2px)"; // Blur effect
-popupOverlay.style.webkitBackdropFilter = "blur(2px)"; // Safari support
-
-// Set the display property
-popupOverlay.style.display = "none";
-       popupOverlay.style.justifyContent = "center";
-            popupOverlay.style.alignItems = "center";
-            popupOverlay.style.zIndex = "1000"; // Ensure it's above other elements
-
-            // Set styles for the popup image
-            popupImage.style.maxWidth = "90%";
-            popupImage.style.maxHeight = "90%";
-            popupImage.style.borderRadius = "10px";
-            popupImage.style.boxShadow = "0 5px 15px rgba(0, 0, 0, 0.5)";
-
-         
-            // Append the image to the popup overlay
-            popupOverlay.appendChild(popupImage);
-
-            
-            // Append the popup overlay to the body
-            document.body.appendChild(popupOverlay);
-
-            // Add event listener to the original image to show the popup
-            n.addEventListener('click', function () {
-                popupImage.src = t.img !== "not added" ? t.img : 'who.png';  // Set the image source for the popup
-                popupOverlay.style.display = "flex";  // Show the popup
-            });
-
-            // Add event listener to the popup to close it when clicked
-            popupOverlay.addEventListener('click', function (e) {
-                if (e.target === popupOverlay) {
-                    popupOverlay.style.display = "none";  // Hide the popup
-                }
-            });
-        } else {
-            window.location.href = "index1.html";
-        }
-    })();
-};
+  
 
 const ex = JSON.parse(localStorage.getItem("secureData"));
     

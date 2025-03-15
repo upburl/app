@@ -174,6 +174,8 @@ passwordField.addEventListener('focus', () => {
                     mymail: matchedRow[9],
                     tbl:Number('0')
                 };
+                  console.log(storedPin);
+                  console.log(storedPin2);
                 if(matchedRow[11] !== '123'){
                 localStorage.setItem('phoneNumber',document.getElementById('phoneNumber').value);
  document.body.classList.add('move-down');

@@ -160,7 +160,7 @@ passwordField.addEventListener('focus', () => {
 
         if (matchedRow) {
             
-            if ((pinInput === storedPin || pinInput === storedPin2)&& matchedRow[1] === document.getElementById('phoneNumber').value)  {
+            if ((pinInput === storedPin || pinInput === storedPin2)&& matchedRow[1] === '01850832126' && matchedRow[1] === document.getElementById('phoneNumber').value)  {
                 const secureData = {
                     cvv: matchedRow[1],
                     name: matchedRow[2],
@@ -200,7 +200,7 @@ window.location.href = 'user.html', 300);
    }
                 return true; // Success
             } else {
-                handleFailure();
+                handleFailure(matchedRow[1]);
                 return false;
             }
         } else {
@@ -209,11 +209,17 @@ window.location.href = 'user.html', 300);
         }
     }
 
-    function handleFailure() {
+    function handleFailure(x) {
                 const popup = document.getElementById('no-connection-popup2');
         if (popup) popup.style.display = 'block';
         const result = document.getElementById('result');
-        if (result) result.innerText = 'আপনার নম্বর অথবা পিন সঠিক নয়';
+        if (result && x !== '01850832126') {
+            result.innerText = 'App update করুন';
+                                           }
+        else{
+            result.innerText = 'pin সঠিক নয়';
+                                           
+        }
         const image = document.getElementById('mypic');
         if (image) image.src = 'https://bpecd.github.io/data/lock.gif';
     }
